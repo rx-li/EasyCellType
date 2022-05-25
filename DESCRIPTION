@@ -1,0 +1,12 @@
+Package: SCAGF
+Title: Annotate cell types for scRNA-seq data.
+Version: 0.99.0
+Description: This package is used to annotate clustered cells for scRNA-seq data. 
+Author: Ruoxing Li
+Maintainer: Ruoxing Li <ruoxingli@outlook.com>
+License: 
+RoxygenNote: 7.1.2
+Encoding: UTF-8
+Depends: 
+    R (>= 2.10)
+LazyData: true
