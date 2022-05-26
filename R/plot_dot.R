@@ -8,7 +8,6 @@
 #' 
 #' @export plot_dot
 #' 
-#' @example plot_dot(test="GSEA", data=data)
 #'
 plot_dot <- function(test="GSEA", data){
   size <- c(7, 5, 3, 1.5, 1)

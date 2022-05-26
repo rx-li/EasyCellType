@@ -9,7 +9,6 @@
 #' 
 #' @export plot_bar 
 #' 
-#' @example plot_bar(test="GSEA", data=data)
 #'
 #' 
 plot_bar <- function(test="GSEA", data){
@@ -31,7 +30,7 @@ plot_bar <- function(test="GSEA", data){
       ggplot(aes(x=ID, y=length)) + 
       geom_bar(stat="identity", width=0.5, fill=ID_color) +
       theme_classic() +
-      coord_flip() + guides(x="none") +
+      coord_flip() +
       labs(title=paste("Cluster", t)) +
       theme(axis.title.x=element_blank(),
             axis.text.x=element_blank(),

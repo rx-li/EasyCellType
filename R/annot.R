@@ -14,7 +14,6 @@
 #' 
 #' @export annot
 #' 
-#' @example annot(d, db="cellmarker", species="Human", tissue=c("Blood", "Peripheral blood"), p_cut=0.1, test="GSEA")
 #'
 annot <- function(data, db="cellmarker",
                   species="Human", tissue=NULL, p_cut=0.5, test="GSEA"){
