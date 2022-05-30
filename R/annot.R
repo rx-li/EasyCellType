@@ -29,7 +29,7 @@ annot <- function(data, db="cellmarker",
   
   # data frame to list 
   cols <- names(data)
-  classes <- unique(data[, paste(cols[2])])
+  #classes <- as.character(unlist(unique(data[, paste(cols[2])])))
   data.l <- split(data, f=data[, paste(cols[2])])
 
   # extract the species
@@ -49,7 +49,7 @@ annot <- function(data, db="cellmarker",
   if (test == "GSEA") {
     input.l <- lapply(data.l, function(x) x[, paste(cols[3])])
     
-    for (i in seq(length(classes))) {
+    for (i in seq(length(data.l))) {
       names(input.l[[i]]) <- data.l[[i]][, paste(cols[1])]
       }
     
@@ -58,7 +58,7 @@ annot <- function(data, db="cellmarker",
       function(x) GSEA(x, TERM2GENE = cells, pvalueCutoff = p_cut, minGSSize = 1)
       )
 
-    for (i in seq(length(classes))) {
+    for (i in seq(length(data.l))) {
       if (nrow(results[[i]]) == 0){
         results[[i]]<- NA
       }

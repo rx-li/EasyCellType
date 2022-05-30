@@ -1,4 +1,4 @@
-Package: SCAGF
+Package: EasyCellType
 Title: Annotate cell types for scRNA-seq data.
 Version: 0.99.0
 Description: This package is used to annotate clustered cells for scRNA-seq data. 
@@ -10,3 +10,7 @@ Encoding: UTF-8
 Depends: 
     R (>= 2.10)
 LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
