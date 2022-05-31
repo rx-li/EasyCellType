@@ -3,9 +3,11 @@
 #' @param test "GSEA" or "fisher"
 #' @param data Annotation results 
 #'
-#' 
 #' @import ggplot2
 #' @import forcats
+#' 
+#' @examples 
+#' plot_bar(test="GSEA", annot_results)
 #' 
 #' @export plot_bar 
 #' 
@@ -47,5 +49,4 @@ plot_bar <- function(test="GSEA", data){
   data.l_sort_bar <- lapply(data.l_sort, function(x) {x$length <- c(nrow(x):1); x})
   lapply(seq(length(data.l_sort_bar)), function(x) 
     plot_one_cluster(data.l_sort_bar[[x]], names(data.l_sort_bar)[x]))
-  
 }

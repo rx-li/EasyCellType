@@ -6,17 +6,24 @@
 #' @param species Human or Mouse. Human in default.
 #' @param tissue Tissue types can be specified when running the analysis. Length of tissue can be larger than 1. 
 #' @param p_cut Cutoff of the P value for GSEA.
-#' @param test Fisher exact test or GSEA; GSEA is used in default. 
+#' @param test "GSEA" or "fisher"; "GSEA" is used in default. 
+#' @param scoretype Argument used for GSEA. Default value is "std". If all scores are positive, then scoretype should be "pos". 
 #'
 #' 
 #' @import clusterProfiler
 #' @import dplyr
 #' 
+#' @examples 
+#' data(gene_pbmc)
+#' result <- annot(gene_pbmc, db="cellmarker", species="Human", 
+#' tissue=c("Blood", "Peripheral blood", "Blood vessel",
+#' "Umbilical cord blood", "Venous blood"), p_cut=0.3, test="GSEA", scoretype="pos")
+#' 
 #' @export annot
 #' 
 #'
 annot <- function(data, db="cellmarker",
-                  species="Human", tissue=NULL, p_cut=0.5, test="GSEA"){
+                  species="Human", tissue=NULL, p_cut=0.5, test="GSEA", scoretype = "std"){
   # loadRData <- function(fileName){
   #   #loads an RData file, and returns it
   #   load(fileName)
@@ -55,7 +62,7 @@ annot <- function(data, db="cellmarker",
     
     results <- lapply(
       input.l,
-      function(x) GSEA(x, TERM2GENE = cells, pvalueCutoff = p_cut, minGSSize = 1)
+      function(x) GSEA(x, TERM2GENE = cells, pvalueCutoff = p_cut, minGSSize = 1, scoreType = scoretype)
       )
 
     for (i in seq(length(data.l))) {

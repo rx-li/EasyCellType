@@ -3,8 +3,10 @@
 #' @param test Test used to annotate cell types: "GSEA" or "fisher"
 #' @param data Annotation results
 #'
-#' 
 #' @import ggplot2
+#' 
+#' @examples 
+#' plot_dot(test="GSEA", annot_results)
 #' 
 #' @export plot_dot
 #' 
