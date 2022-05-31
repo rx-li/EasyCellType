@@ -26,8 +26,17 @@ Order of the columns should be gene, cluster and score.}
 
 \item{p_cut}{Cutoff of the P value for GSEA.}
 
-\item{test}{Fisher exact test or GSEA; GSEA is used in default.}
+\item{test}{"GSEA" or "fisher"; "GSEA" is used in default.}
+
+\item{scoretype}{Argument used for GSEA. Default value is "std". If all scores are positive, then scoretype should be "pos".}
 }
 \description{
 Annotate cell types for single cell RNA data
+}
+\examples{
+data(gene_pbmc)
+result <- annot(gene_pbmc, db="cellmarker", species="Human", 
+tissue=c("Blood", "Peripheral blood", "Blood vessel",
+"Umbilical cord blood", "Venous blood"), p_cut=0.3, test="GSEA", scoretype="pos")
+
 }

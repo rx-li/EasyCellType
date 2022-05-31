@@ -14,3 +14,7 @@ plot_dot(test = "GSEA", data)
 \description{
 Create dot plot for annotation results
 }
+\examples{
+plot_dot(test="GSEA", annot_results)
+
+}

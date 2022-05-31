@@ -14,3 +14,7 @@ plot_bar(test = "GSEA", data)
 \description{
 Create bar plots for each cluster
 }
+\examples{
+plot_bar(test="GSEA", annot_results)
+
+}
