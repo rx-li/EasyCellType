@@ -10,7 +10,8 @@ annot(
   species = "Human",
   tissue = NULL,
   p_cut = 0.5,
-  test = "GSEA"
+  test = "GSEA",
+  scoretype = "std"
 )
 }
 \arguments{
