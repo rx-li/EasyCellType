@@ -16,14 +16,14 @@
 #' 
 #' @examples 
 #' data(gene_pbmc)
-#' result <- annot(gene_pbmc, db="cellmarker", species="Human", 
+#' result <- easyct(gene_pbmc, db="cellmarker", species="Human", 
 #' tissue=c("Blood", "Peripheral blood", "Blood vessel",
 #' "Umbilical cord blood", "Venous blood"), p_cut=0.3, test="GSEA", scoretype="pos")
 #' 
-#' @export annot
+#' @export easyct
 #' 
 #'
-annot <- function(data, db="cellmarker",
+easyct <- function(data, db="cellmarker",
                   species="Human", tissue=NULL, p_cut=0.5, test="GSEA", scoretype = "std"){
   # loadRData <- function(fileName){
   #   #loads an RData file, and returns it

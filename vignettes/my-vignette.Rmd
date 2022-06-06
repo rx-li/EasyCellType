@@ -117,7 +117,7 @@ input.d <- as.data.frame(markers_sort[, 1:3])
 
 Now we can call the `annot` function to run annotation analysis.
 ```{r, eval=FALSE}
-annot.GSEA <- annot(input.d, db="cellmarker", species="Human", 
+annot.GSEA <- easyct(input.d, db="cellmarker", species="Human", 
                     tissue=c("Blood", "Peripheral blood", "Blood vessel",
                       "Umbilical cord blood", "Venous blood"), p_cut=0.3,
                     test="GSEA")

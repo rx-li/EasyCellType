@@ -2,7 +2,7 @@
 % Please edit documentation in R/test_fisher.R
 \name{test_fisher}
 \alias{test_fisher}
-\title{Fisher exact test used in function 'annot'}
+\title{Fisher exact test used in function 'easyct'}
 \usage{
 test_fisher(testgenes, ref, cols)
 }
@@ -17,5 +17,5 @@ test_fisher(testgenes, ref, cols)
 data frame
 }
 \description{
-Fisher exact test used in function 'annot'
+Fisher exact test used in function 'easyct'
 }

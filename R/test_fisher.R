@@ -1,4 +1,4 @@
-#' Fisher exact test used in function 'annot'
+#' Fisher exact test used in function 'easyct'
 #'
 #' @param testgenes A data frame containing query genes and the expression scores. 
 #' @param ref The reference data base.
