@@ -22,7 +22,8 @@ Order of the columns should be gene, cluster and score.}
 
 \item{species}{Human or Mouse. Human in default.}
 
-\item{tissue}{Tissue types can be specified when running the analysis. Length of tissue can be larger than 1.}
+\item{tissue}{Tissue types can be specified when running the analysis. Length of tissue can be larger than 1. 
+The possible tissues can be seen using `data(cellmarker_tissue)`, `data(clustermole_tissue)` and `data(panglao_tissue)`.}
 
 \item{p_cut}{Cutoff of the P value for GSEA.}
 

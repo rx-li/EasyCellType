@@ -5,6 +5,7 @@
 #' @param db Name of the reference database; CellMarker database is used in default.
 #' @param species Human or Mouse. Human in default.
 #' @param tissue Tissue types can be specified when running the analysis. Length of tissue can be larger than 1. 
+#' The possible tissues can be seen using `data(cellmarker_tissue)`, `data(clustermole_tissue)` and `data(panglao_tissue)`.
 #' @param p_cut Cutoff of the P value for GSEA.
 #' @param test "GSEA" or "fisher"; "GSEA" is used in default. 
 #' @param scoretype Argument used for GSEA. Default value is "std". If all scores are positive, then scoretype should be "pos". 
