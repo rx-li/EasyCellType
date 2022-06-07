@@ -141,6 +141,8 @@ We used the GSEA approach to do the annotation. In our package, we use `GSEA`
 function in `clusterProfiler` package[@clusterprofiler] to conduct the enrichment analysis.
 You can replace 'GSEA' with 'fisher' if you would like to use Fisher exact test 
 to do the annotation.
+The candidate tissues can be seen using `data(cellmarker_tissue)`, 
+`data(clustermole_tissue)` and `data(panglao_tissue)`.
 
 The dot plot showing the overall annotation results can be created by
 ```{r, results=FALSE, warning=FALSE, message=FALSE}
