@@ -1,6 +1,10 @@
 ---
 title: "EasyCellType: an example workflow"
-output: rmarkdown::html_vignette
+output: 
+  BiocStyle::html_document:
+    toc: true
+    number_sections: false
+    
 bibliography: references.bib 
 vignette: >
   %\VignetteIndexEntry{my-vignette}
@@ -36,13 +40,13 @@ BiocManager::install("EasyCellType")
 ```
 
 Alternatively, the package can also be installed using `devtools` by
-```{r, eval=FALSE}
-install.packages("devtools")
+```{r, results=FALSE, warning=FALSE, message=FALSE}
+library(devtools)
 devtools::install_github("rx-li/EasyCellType")
 ```
 
 After the installation, the package can be loaded with
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 library(EasyCellType)
 ```
 
@@ -54,15 +58,15 @@ the data can be loaded by
 ```{r, eval=FALSE}
 # Install Seurat
 install.packages('Seurat')
-library(Seurat)
-# Load the PBMC dataset
-pbmc.data <- Read10X(data.dir = "../data/hg19/")
 ```
 
 We followed the standard workflow provided by `Seurat` package[@seurat] to process the PBMC data set. 
 The detailed technical explanations can be found in 
 https://satijalab.org/seurat/articles/pbmc3k_tutorial.html.
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
+library(Seurat)
+# Load the PBMC dataset
+pbmc.data <- Read10X(data.dir = "../data/hg19")
 # Initialize the Seurat object
 pbmc <- CreateSeuratObject(counts = pbmc.data, project = "pbmc3k", min.cells = 3, min.features = 200)
 # QC and select samples
@@ -87,7 +91,7 @@ markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold
 Now we get the expressed markers for each cluster. 
 We then convert the gene symbols to Entrez IDs.
 
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 library("org.Hs.eg.db")
 library(AnnotationDbi)
 markers$entrezid <- mapIds(org.Hs.eg.db,
@@ -104,7 +108,7 @@ with `org.Mm.eg.db` and do the above analysis.
 The input for `EasyCellType` package should be a data frame containing Entrez IDs, 
 clusters and expression scores. The order of columns should follow this rule.
 In each cluster, the gene should be sorted by the expression score.
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
 markers_sort <- data.frame(gene=markers$entrezid, cluster=markers$cluster, 
                       score=markers$avg_log2FC) %>% 
@@ -116,22 +120,24 @@ input.d <- as.data.frame(markers_sort[, 1:3])
 ```
 
 Now we can call the `annot` function to run annotation analysis.
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 annot.GSEA <- easyct(input.d, db="cellmarker", species="Human", 
                     tissue=c("Blood", "Peripheral blood", "Blood vessel",
                       "Umbilical cord blood", "Venous blood"), p_cut=0.3,
                     test="GSEA")
 ```
 We used the GSEA approach to do the annotation. In our package, we use `GSEA`
-function in `clusterProfiler` package[@clusterprofiler] to conduct the enrichment analysis. 
+function in `clusterProfiler` package[@clusterprofiler] to conduct the enrichment analysis.
+You can replace 'GSEA' with 'fisher' if you would like to use Fisher exact test 
+to do the annotation.
 
 The dot plot showing the overall annotation results can be created by
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 plot_dot(test="GSEA", annot.GSEA)
 ```
 
 Bar plot can be created by
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE, fig.show='hide'}
 plot_bar(test="GSEA", annot.GSEA)
 ```
 
