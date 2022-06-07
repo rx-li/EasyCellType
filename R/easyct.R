@@ -1,7 +1,11 @@
-#' Annotate cell types for single cell RNA data
+#' We developed EasyCellType that can automatically examine the input marker lists 
+#' obtained from existing software such as Seurat over the cell marker databases. 
+#' Two quantification approaches to annotate cell types are provided: 
+#' Gene set enrichment analysis (GSEA) and a fisher exact test combining with expression significance.
 #'
-#' @param data Name of a data frame containing the markers' Entrez IDs, cluster, and expression scores; Marker genes should be sorted in each cluster.
-#'             Order of the columns should be gene, cluster and score.
+#' @param data Name of a data frame containing the markers' Entrez IDs, cluster, 
+#' and expression scores; Marker genes should be sorted in each cluster.
+#' Order of the columns should be gene, cluster and score.
 #' @param db Name of the reference database; CellMarker database is used in default.
 #' @param species Human or Mouse. Human in default.
 #' @param tissue Tissue types can be specified when running the analysis. Length of tissue can be larger than 1. 
@@ -19,6 +23,8 @@
 #' result <- easyct(gene_pbmc, db="cellmarker", species="Human", 
 #' tissue=c("Blood", "Peripheral blood", "Blood vessel",
 #' "Umbilical cord blood", "Venous blood"), p_cut=0.3, test="GSEA", scoretype="pos")
+#' 
+#' @return List
 #' 
 #' @export easyct
 #' 

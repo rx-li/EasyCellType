@@ -3,7 +3,6 @@
 export(easyct)
 export(plot_bar)
 export(plot_dot)
-export(process_results)
 import(clusterProfiler)
 import(dplyr)
 import(forcats)

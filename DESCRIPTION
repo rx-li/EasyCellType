@@ -1,19 +1,16 @@
 Package: EasyCellType
 Title: Annotate cell types for scRNA-seq data.
 Version: 0.99.0
-Description: This package is used to annotate clustered cells for scRNA-seq data. 
-Author: Ruoxing Li
-Maintainer: Ruoxing Li <ruoxingli@outlook.com>
-License: 
-RoxygenNote: 7.1.2
+Authors@R: c(
+	person(given="Ruoxing", family="Li", email="ruoxingli@outlook.com", role=c("aut", "cre", "ctb")),
+	person(given="Ziyi", family="Li", email="zli16@mdanderson.org", role="ctb"))
+Description: We developed EasyCellType that can automatically examine the input marker lists obtained from existing software such as Seurat over the cell marker databases. Two quantification approaches to annotate cell types are provided: Gene set enrichment analysis (GSEA) and a fisher exact test combining with expression significance.
+License: Artistic-2.0 
+RoxygenNote: 7.2.0
 Encoding: UTF-8
-Depends: 
-    R (>= 2.10)
-LazyData: true
-biocView: SingleCell, Software
-Suggests: 
-    knitr,
-    rmarkdown,
-    testthat (>= 3.0.0)
+Depends: R (>= 4.1.0)
+biocViews: SingleCell, Software, GeneExpression, GeneSetEnrichment
+Imports: clusterProfiler, dplyr, forcats, ggplot2
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3

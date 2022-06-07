@@ -7,7 +7,13 @@
 #' @import forcats
 #' 
 #' @examples 
-#' plot_bar(test="GSEA", annot_results)
+#' data(gene_pbmc)
+#' result <- easyct(gene_pbmc, db="cellmarker", species="Human", 
+#' tissue=c("Blood", "Peripheral blood", "Blood vessel",
+#' "Umbilical cord blood", "Venous blood"), p_cut=0.3, test="GSEA", scoretype="pos")
+#' plot_bar("GSEA", result)
+#' 
+#' @return Plot
 #' 
 #' @export plot_bar 
 #' 

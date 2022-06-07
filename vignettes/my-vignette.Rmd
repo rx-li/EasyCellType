@@ -51,22 +51,27 @@ library(EasyCellType)
 ```
 
 ## 2. Example workflow
-We use the Peripheral Blood Mononuclear Cells (PBMC) data freely available from 10X Genomics. 
-The data can be downladed from https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz.
-After downloading the data, replace the path of `data.dir` in the below code, 
-the data can be loaded by
+First we need to install the `Seurat` package.
 ```{r, eval=FALSE}
 # Install Seurat
 install.packages('Seurat')
 ```
 
+We use the Peripheral Blood Mononuclear Cells (PBMC) data freely available from 10X Genomics. 
+The data can be downladed from https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz.
+After downloading the data, replace the path of `data.dir` **with your own path** in the below code, 
+the data can be loaded by
+```{r, eval=FALSE}
+library(Seurat)
+# Load the PBMC dataset
+pbmc.data <- Read10X(data.dir = "../../inst/extdata/hg19")
+```
+
+
 We followed the standard workflow provided by `Seurat` package[@seurat] to process the PBMC data set. 
 The detailed technical explanations can be found in 
 https://satijalab.org/seurat/articles/pbmc3k_tutorial.html.
-```{r, results=FALSE, warning=FALSE, message=FALSE}
-library(Seurat)
-# Load the PBMC dataset
-pbmc.data <- Read10X(data.dir = "../data/hg19")
+```{r, eval=FALSE}
 # Initialize the Seurat object
 pbmc <- CreateSeuratObject(counts = pbmc.data, project = "pbmc3k", min.cells = 3, min.features = 200)
 # QC and select samples
@@ -91,7 +96,7 @@ markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold
 Now we get the expressed markers for each cluster. 
 We then convert the gene symbols to Entrez IDs.
 
-```{r, results=FALSE, warning=FALSE, message=FALSE}
+```{r, eval=FALSE}
 library("org.Hs.eg.db")
 library(AnnotationDbi)
 markers$entrezid <- mapIds(org.Hs.eg.db,
@@ -108,16 +113,22 @@ with `org.Mm.eg.db` and do the above analysis.
 The input for `EasyCellType` package should be a data frame containing Entrez IDs, 
 clusters and expression scores. The order of columns should follow this rule.
 In each cluster, the gene should be sorted by the expression score.
-```{r, results=FALSE, warning=FALSE, message=FALSE}
+```{r, eval=FALSE}
 library(dplyr)
 markers_sort <- data.frame(gene=markers$entrezid, cluster=markers$cluster, 
                       score=markers$avg_log2FC) %>% 
   group_by(cluster) %>% 
-  filter(score > 1) %>%
   mutate(rank = rank(score),  ties.method = "random") %>% 
   arrange(desc(rank)) 
 input.d <- as.data.frame(markers_sort[, 1:3])
 ```
+
+We have include the processed data in the package. It can be loaded with
+```{r, results=FALSE, warning=FALSE, message=FALSE}
+data("gene_pbmc")
+input.d <- gene_pbmc
+```
+
 
 Now we can call the `annot` function to run annotation analysis.
 ```{r, results=FALSE, warning=FALSE, message=FALSE}

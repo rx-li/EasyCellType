@@ -4,7 +4,6 @@
 #' @param data Annotation results.
 #'
 #' @return data frame
-#' @export process_results
 #'
 
 process_results <- function(test, data){
