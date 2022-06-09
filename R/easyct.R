@@ -1,8 +1,5 @@
-#' We developed EasyCellType that can automatically examine the input marker lists 
-#' obtained from existing software such as Seurat over the cell marker databases. 
-#' Two quantification approaches to annotate cell types are provided: 
-#' Gene set enrichment analysis (GSEA) and a fisher exact test combining with expression significance.
-#'
+#' Annotate cell types for scRNA-seq data.
+#' 
 #' @param data Name of a data frame containing the markers' Entrez IDs, cluster, 
 #' and expression scores; Marker genes should be sorted in each cluster.
 #' Order of the columns should be gene, cluster and score.

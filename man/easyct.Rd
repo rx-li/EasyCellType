@@ -2,10 +2,7 @@
 % Please edit documentation in R/easyct.R
 \name{easyct}
 \alias{easyct}
-\title{We developed EasyCellType that can automatically examine the input marker lists 
-obtained from existing software such as Seurat over the cell marker databases. 
-Two quantification approaches to annotate cell types are provided: 
-Gene set enrichment analysis (GSEA) and a fisher exact test combining with expression significance.}
+\title{Annotate cell types for scRNA-seq data.}
 \usage{
 easyct(
   data,
@@ -39,10 +36,7 @@ The possible tissues can be seen using `data(cellmarker_tissue)`, `data(clusterm
 List
 }
 \description{
-We developed EasyCellType that can automatically examine the input marker lists 
-obtained from existing software such as Seurat over the cell marker databases. 
-Two quantification approaches to annotate cell types are provided: 
-Gene set enrichment analysis (GSEA) and a fisher exact test combining with expression significance.
+Annotate cell types for scRNA-seq data.
 }
 \examples{
 data(gene_pbmc)
