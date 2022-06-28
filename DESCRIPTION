@@ -11,6 +11,7 @@ Encoding: UTF-8
 Depends: R (>= 4.2.0)
 biocViews: SingleCell, Software, GeneExpression, GeneSetEnrichment
 Imports: clusterProfiler, dplyr, forcats, ggplot2
-Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0), Seurat, org.Hs.eg.db, AnnotationDbi
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+LazyData: true
