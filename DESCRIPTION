@@ -4,11 +4,11 @@ Version: 0.99.0
 Authors@R: c(
 	person(given="Ruoxing", family="Li", email="ruoxingli@outlook.com", role=c("aut", "cre", "ctb")),
 	person(given="Ziyi", family="Li", email="zli16@mdanderson.org", role="ctb"))
-Description: We developed EasyCellType that can automatically examine the input marker lists obtained from existing software such as Seurat over the cell marker databases. Two quantification approaches to annotate cell types are provided: Gene set enrichment analysis (GSEA) and a fisher exact test combining with expression significance.
+Description: We developed EasyCellType which can automatically examine the input marker lists obtained from existing software such as Seurat over the cell markerdatabases. Two quantification approaches to annotate cell types are provided: Gene set enrichment analysis (GSEA) and a modified versio of Fisher's exact test. The package presents annotation recommendations in graphical otucomes: bar plots for each cluster showing candidate cell types, as well as a dot plot summarizing the top 5 significant annotations for each cluster.
 License: Artistic-2.0 
 RoxygenNote: 7.2.0
 Encoding: UTF-8
-Depends: R (>= 4.1.0)
+Depends: R (>= 4.2.0)
 biocViews: SingleCell, Software, GeneExpression, GeneSetEnrichment
 Imports: clusterProfiler, dplyr, forcats, ggplot2
 Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
