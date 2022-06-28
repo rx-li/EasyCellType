@@ -20,15 +20,16 @@ knitr::opts_chunk$set(
 ```
 
 ## 1. Introduction
-The `EasyCellType` package was designed to annotate the cell types
-for single-cell RNA sequencing data. The package refers to 3 public available 
-marker gene data bases, and provides two approaches to conduct 
-the annotation: gene set enrichment analysis(GSEA) and fisher exact test combining 
-with marker expression significance. 
+The `EasyCellType` package was designed to examine an input marker list using 
+the databases and provide annotation recommendations in graphical outcomes. 
+The package refers to 3 public available marker gene data bases, 
+and provides two approaches to conduct the annotation anaysis: 
+gene set enrichment analysis(GSEA) and a modified Fisher's exact test.
+The package has been submitted to `bioconductor` to achieve an easy access for researchers.  
 
 This vignette shows a simple workflow illustrating how EasyCellType package works. 
 The data set that will be used throughout the example is freely available from 
-10X Genomics. The data set can be downloaded from https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz.
+10X Genomics.
 
 ### Installation
 The package can be installed using `BiocManager` by the following commands
@@ -39,7 +40,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("EasyCellType")
 ```
 
-Alternatively, the package can also be installed using `devtools` by
+Alternatively, the package can also be installed using `devtools` and launched by
 ```{r, results=FALSE, warning=FALSE, message=FALSE}
 library(devtools)
 devtools::install_github("rx-li/EasyCellType")
@@ -51,29 +52,34 @@ library(EasyCellType)
 ```
 
 ## 2. Example workflow
-First we need to install the `Seurat` package.
-```{r, eval=FALSE}
+First we need to install and launch the `Seurat` package.
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 # Install Seurat
-install.packages('Seurat')
+install.packages('Seurat', repos = "http://cloud.r-project.org")
+library(Seurat)
 ```
 
 We use the Peripheral Blood Mononuclear Cells (PBMC) data freely available from 10X Genomics. 
-The data can be downladed from https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz.
-After downloading the data, replace the path of `data.dir` **with your own path** in the below code, 
-the data can be loaded by
+The data can be downladed from
+https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz.
+After downloading the data, replace the path of `data.dir` **with your own path** in the below code, the data can be loaded by
 ```{r, eval=FALSE}
-library(Seurat)
 # Load the PBMC dataset
-pbmc.data <- Read10X(data.dir = "../../inst/extdata/hg19")
+pbmc_data <- Read10X(data.dir = "./hg19/")
+```
+
+We have included the `pbmc.data` in our package, which can be loaded with
+```{r, results=FALSE, warning=FALSE, message=FALSE}
+data(pbmc_data)
 ```
 
 
 We followed the standard workflow provided by `Seurat` package[@seurat] to process the PBMC data set. 
-The detailed technical explanations can be found in 
+The detailed technical explanations can be found in
 https://satijalab.org/seurat/articles/pbmc3k_tutorial.html.
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 # Initialize the Seurat object
-pbmc <- CreateSeuratObject(counts = pbmc.data, project = "pbmc3k", min.cells = 3, min.features = 200)
+pbmc <- CreateSeuratObject(counts = pbmc_data, project = "pbmc3k", min.cells = 3, min.features = 200)
 # QC and select samples
 pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
 pbmc <- subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA < 2500 & percent.mt < 5)
@@ -96,8 +102,10 @@ markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct = 0.25, logfc.threshold
 Now we get the expressed markers for each cluster. 
 We then convert the gene symbols to Entrez IDs.
 
-```{r, eval=FALSE}
-library("org.Hs.eg.db")
+```{r, results=FALSE, warning=FALSE, message=FALSE}
+BiocManager::install("org.Hs.eg.db")
+BiocManager::install("AnnotationDbi")
+library(org.Hs.eg.db)
 library(AnnotationDbi)
 markers$entrezid <- mapIds(org.Hs.eg.db,
                            keys=markers$gene, #Column containing Ensembl gene ids
@@ -113,7 +121,7 @@ with `org.Mm.eg.db` and do the above analysis.
 The input for `EasyCellType` package should be a data frame containing Entrez IDs, 
 clusters and expression scores. The order of columns should follow this rule.
 In each cluster, the gene should be sorted by the expression score.
-```{r, eval=FALSE}
+```{r, results=FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
 markers_sort <- data.frame(gene=markers$entrezid, cluster=markers$cluster, 
                       score=markers$avg_log2FC) %>% 
@@ -137,6 +145,7 @@ annot.GSEA <- easyct(input.d, db="cellmarker", species="Human",
                       "Umbilical cord blood", "Venous blood"), p_cut=0.3,
                     test="GSEA")
 ```
+
 We used the GSEA approach to do the annotation. In our package, we use `GSEA`
 function in `clusterProfiler` package[@clusterprofiler] to conduct the enrichment analysis.
 You can replace 'GSEA' with 'fisher' if you would like to use Fisher exact test 
@@ -152,6 +161,10 @@ plot_dot(test="GSEA", annot.GSEA)
 Bar plot can be created by
 ```{r, results=FALSE, warning=FALSE, message=FALSE, fig.show='hide'}
 plot_bar(test="GSEA", annot.GSEA)
+```
+
+```{r}
+sessionInfo()
 ```
 
 ## 3. Reference
