@@ -12,8 +12,9 @@ process_results(test, data)
 \item{data}{Annotation results.}
 }
 \value{
-data frame
+A data frame used to generate plots.
 }
 \description{
-Title Annotate cell types for single cell RNA data
+This function is used to process the annotation test results. 
+Processed data will be used to generate plots.
 }

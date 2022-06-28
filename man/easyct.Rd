@@ -17,9 +17,10 @@ easyct(
 \arguments{
 \item{data}{Name of a data frame containing the markers' Entrez IDs, cluster, 
 and expression scores; Marker genes should be sorted in each cluster.
-Order of the columns should be gene, cluster and score.}
+Order of the columns should be gene, cluster and score. An example data can be
+loaded using `data(gene_pbmc)`.}
 
-\item{db}{Name of the reference database; CellMarker database is used in default.}
+\item{db}{Name of the reference database: cellmarker, clustermole or panglaodb;}
 
 \item{species}{Human or Mouse. Human in default.}
 
@@ -33,10 +34,13 @@ The possible tissues can be seen using `data(cellmarker_tissue)`, `data(clusterm
 \item{scoretype}{Argument used for GSEA. Default value is "std". If all scores are positive, then scoretype should be "pos".}
 }
 \value{
-List
+A list containing the test results for each cluster.
 }
 \description{
-Annotate cell types for scRNA-seq data.
+This function is used to run the annotation analysis using either 
+GSEA or a modified Fisher's exact test. We expect users to input a data frame 
+containing expressed markers, cluster information and the differential score (log fold change). 
+The gene lists in that data frame should be sorted by their differential score.
 }
 \examples{
 data(gene_pbmc)

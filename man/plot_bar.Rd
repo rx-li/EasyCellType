@@ -12,10 +12,11 @@ plot_bar(test = "GSEA", data)
 \item{data}{Annotation results}
 }
 \value{
-Plot
+Bar plots showing show up to 10 candidate cell types for each cluster.
 }
 \description{
-Create bar plots for each cluster
+This function is used to generate set of bar plots presenting up 
+to 10 candidate cell types for each cluster.
 }
 \examples{
 data(gene_pbmc)

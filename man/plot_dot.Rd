@@ -12,10 +12,11 @@ plot_dot(test = "GSEA", data)
 \item{data}{Annotation results}
 }
 \value{
-Plots
+A dot plot showing the top 5 significant cell types for each cluster.
 }
 \description{
-Create dot plot for annotation results
+This function is used to generate a dor plot presenting the top 5
+candidate cell types for each cluster.
 }
 \examples{
 data(gene_pbmc)

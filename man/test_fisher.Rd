@@ -14,8 +14,8 @@ test_fisher(testgenes, ref, cols)
 \item{cols}{Column names of the input data frame}
 }
 \value{
-data frame
+A data frame containg the results of fisher's exact test.
 }
 \description{
-Fisher exact test used in function 'easyct'
+This function is used to conduct the modified Fisher's exact test.
 }
