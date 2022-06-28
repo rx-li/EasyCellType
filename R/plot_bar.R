@@ -10,6 +10,7 @@
 #' @importFrom forcats fct_reorder
 #' @importFrom dplyr mutate
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #' 
 #' @examples 
 #' data(gene_pbmc)

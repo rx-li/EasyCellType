@@ -20,6 +20,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom clusterProfiler GSEA
 #' @importFrom dplyr filter select 
+#' @importFrom rlang .data
 #' 
 #' @examples 
 #' data(gene_pbmc)
@@ -60,7 +61,7 @@ easyct <- function(data, db="cellmarker",
   # extract the species
   db.data.human <- db.data %>% filter(spe == species)
   
-  if(length(tissue) > 0 && !tissue %in% unique(db.data.human$organ)){
+  if(length(tissue) > 0 && mean(tissue %in% unique(db.data.human$organ)) != 1){
     stop("Please refer the tissue types using data(cellmarker_tissue), 
          data(clustermole_tissue) or data(panglao_tissue)")
   }

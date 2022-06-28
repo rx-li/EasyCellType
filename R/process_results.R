@@ -7,6 +7,7 @@
 #' @param data Annotation results.
 #' @importFrom dplyr bind_rows slice_min group_by mutate 
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #'
 #' @return A data frame used to generate plots. 
 #'

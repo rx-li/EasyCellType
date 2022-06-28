@@ -9,6 +9,7 @@
 #' @importFrom ggplot2 ggplot geom_point theme aes element_blank element_line
 #' @importFrom dplyr arrange slice group_by
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #' 
 #' @examples 
 #' data(gene_pbmc)
