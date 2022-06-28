@@ -43,7 +43,7 @@ BiocManager::install("EasyCellType")
 Alternatively, the package can also be installed using `devtools` and launched by
 ```{r, results=FALSE, warning=FALSE, message=FALSE}
 library(devtools)
-devtools::install_github("rx-li/EasyCellType")
+install_github("rx-li/EasyCellType")
 ```
 
 After the installation, the package can be loaded with
@@ -52,11 +52,10 @@ library(EasyCellType)
 ```
 
 ## 2. Example workflow
-First we need to install and launch the `Seurat` package.
-```{r, results=FALSE, warning=FALSE, message=FALSE}
+First we need to install the `Seurat` package.
+```{r, eval=FALSE}
 # Install Seurat
 install.packages('Seurat', repos = "http://cloud.r-project.org")
-library(Seurat)
 ```
 
 We use the Peripheral Blood Mononuclear Cells (PBMC) data freely available from 10X Genomics. 
@@ -65,6 +64,7 @@ https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.
 After downloading the data, replace the path of `data.dir` **with your own path** in the below code, the data can be loaded by
 ```{r, eval=FALSE}
 # Load the PBMC dataset
+library(Seurat)
 pbmc_data <- Read10X(data.dir = "./hg19/")
 ```
 
@@ -78,6 +78,7 @@ We followed the standard workflow provided by `Seurat` package[@seurat] to proce
 The detailed technical explanations can be found in
 https://satijalab.org/seurat/articles/pbmc3k_tutorial.html.
 ```{r, results=FALSE, warning=FALSE, message=FALSE}
+library(Seurat)
 # Initialize the Seurat object
 pbmc <- CreateSeuratObject(counts = pbmc_data, project = "pbmc3k", min.cells = 3, min.features = 200)
 # QC and select samples
