@@ -52,27 +52,15 @@ library(EasyCellType)
 ```
 
 ## 2. Example workflow
-First we need to install the `Seurat` package.
-```{r, eval=FALSE}
-# Install Seurat
-install.packages('Seurat', repos = "http://cloud.r-project.org")
-```
-
 We use the Peripheral Blood Mononuclear Cells (PBMC) data freely available from 10X Genomics. 
 The data can be downladed from
 https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz.
-After downloading the data, replace the path of `data.dir` **with your own path** in the below code, the data can be loaded by
-```{r, eval=FALSE}
-# Load the PBMC dataset
-library(Seurat)
-pbmc_data <- Read10X(data.dir = "./hg19/")
-```
+After downloading the data, it can be read using function `Read10X`. 
 
-We have included the `pbmc.data` in our package, which can be loaded with
+We have included the data in our package, which can be loaded with
 ```{r, results=FALSE, warning=FALSE, message=FALSE}
 data(pbmc_data)
 ```
-
 
 We followed the standard workflow provided by `Seurat` package[@seurat] to process the PBMC data set. 
 The detailed technical explanations can be found in
@@ -104,8 +92,6 @@ Now we get the expressed markers for each cluster.
 We then convert the gene symbols to Entrez IDs.
 
 ```{r, results=FALSE, warning=FALSE, message=FALSE}
-BiocManager::install("org.Hs.eg.db")
-BiocManager::install("AnnotationDbi")
 library(org.Hs.eg.db)
 library(AnnotationDbi)
 markers$entrezid <- mapIds(org.Hs.eg.db,
