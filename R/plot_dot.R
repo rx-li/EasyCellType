@@ -19,28 +19,27 @@
 #' plot_dot("GSEA", result)
 #' 
 #' @return A dot plot showing the top 5 significant cell types for each cluster.
-#' 
 #' @export plot_dot
 #'
 plot_dot <- function(test="GSEA", data){
-  if(!test %in% c("GSEA", "fisher")){
-    stop("The test should be specified as GSEA or fisher.")
-  }
-  if(is.null(data)){
-    stop("Annotation results should be specified.")
-  }
-  size <- c(7, 5, 3, 1.5, 1)
+  stopifnot("The test should be specified as GSEA or fisher." =
+            test %in% c("GSEA", "fisher"))
+  stopifnot("Annotation results should be specified." = length(data) > 0)
+
+  size_max <- 7
+  
   if(test == "GSEA"){
     data.f <- process_results("GSEA", data)
-    enrich.d <- data.f %>% group_by(cluster) %>% 
-      arrange(p.adjust) %>%
-      slice(seq.int(5))
+    enrich.d <- data.f %>% group_by(.data$cluster) %>%
+      arrange(.data$pvalue) %>%
+      slice(seq.int(5)) %>%
+      mutate(group_size_prop = log10(.data$pvalue) / log10(min(.data$pvalue))) 
     
-    enrich.d$size <- unlist(
-      lapply(as.numeric(table(enrich.d$cluster)), function(x) size[seq.int(x)])
-    )
+    enrich.d$size <- size_max * enrich.d$group_size_prop
+    enrich.d$size[enrich.d$size == "NaN" | enrich.d$size == 0] <- 1
+    
     ggplot(enrich.d) +
-      geom_point(aes(x = cluster, y = ID), color = "#25B3B4", 
+      geom_point(aes(x = .data$cluster, y = .data$ID), color = "#25B3B4", 
                  alpha = 0.8, size = enrich.d$size) +
       theme(axis.title.y = element_blank(),
             panel.background = element_blank(),
@@ -49,12 +48,15 @@ plot_dot <- function(test="GSEA", data){
             # explicitly set the horizontal lines (or they will disappear too)
             panel.grid.major.y = element_line(size=0.05, color="gray"))
   }else if(test == "fisher"){
-    data.f <- process_results("fisher", data)
-    data.f$size <- unlist(
-      lapply(as.numeric(table(data.f$cluster)), function(x) size[seq.int(x)])
-    )
+    data.f <- process_results("fisher", data) %>% 
+      group_by(.data$cluster) %>%
+      mutate(group_size_prop = log10(.data$pvalue) / log10(min(.data$pvalue)))
+    
+    data.f$size <- size_max * data.f$group_size_prop
+    data.f$size[data.f$size == "NaN" | data.f$size == 0] <- 1
+    
     ggplot(data.f) +
-      geom_point(aes(x=cluster, y=ID), color="#F38C36", alpha=0.8, 
+      geom_point(aes(x=.data$cluster, y=.data$ID), color="#F38C36", alpha=0.8, 
                  size=data.f$size) +
       theme(axis.title.y = element_blank(),
             panel.background = element_blank(),
