@@ -5,9 +5,11 @@
 #'
 #' @param test Test used to annotation cell types: "GSEA" or "fisher"
 #' @param data Annotation results.
+#' 
 #' @importFrom dplyr bind_rows slice_min group_by mutate 
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
+#' @importFrom stats na.omit
 #'
 #' @return A data frame used to generate plots. 
 #'
@@ -48,6 +50,7 @@ process_results <- function(test, data){
     out <- data.frame(ID = fisher.d$cellName, pvalue_unadjust=fisher.d$p_value,
                       pvalue = fisher.d$p_adjust.x, 
                       cluster = fisher.d$cluster, method = fisher.d$method)
+    out <- na.omit(out)
   }
   return(out)
 }

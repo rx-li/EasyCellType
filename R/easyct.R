@@ -22,6 +22,7 @@
 #' @importFrom clusterProfiler GSEA
 #' @importFrom dplyr filter select 
 #' @importFrom rlang .data
+#' @importFrom stats na.omit
 #' 
 #' @examples 
 #' data(gene_pbmc)
@@ -63,6 +64,7 @@ easyct <- function(data, db="cellmarker", genetype="Entrezid",
   if(genetype == "symbol"){
     data <- mapsymbol(data, species)
   }
+  data <- na.omit(data)
   cols <- names(data)
   data.l <- split(data, f=data[, paste(cols[2])], drop=FALSE)
   # sort by the score
@@ -102,7 +104,14 @@ easyct <- function(data, db="cellmarker", genetype="Entrezid",
     out <- results.c
     
   } else if(test == "fisher"){
-    out <- lapply(data.l, function(x) test_fisher(x, cells, cols))
+    results <- lapply(data.l, function(x) test_fisher(x, cells, cols))
+    results.f <- lapply(seq(length(data.l)), function(i)
+      {if (nrow(results[[i]]) == 0){results[[i]]<- NA}; results[[i]]}
+    )
+    names(results.f) <- names(results)
+    
+    results.c <- results.f[!is.na(results.f)]
+    out <- results.c
   }
   
   return(out)
