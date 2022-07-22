@@ -13,15 +13,10 @@
 #' @return A data frame containg the results of fisher's exact test. 
 #'
 test_fisher <- function(testgenes, ref, cols){
-  if(!is.data.frame(testgenes)){
-    stop("Input data should be a data frame")
-  }
-  if(is.null(ref)){
-    stop("Reference database should be specified")
-  }
-  if(length(cols) != ncol(testgenes)){
-    stop("Dimension does not match; Check the input data frame and column names")
-  }
+  stopifnot("Input data should be a data frame." = is.data.frame(testgenes))
+  stopifnot("Reference database should be specified" = length(ref) > 0)
+  stopifnot("Dimension does not match; Check the input data frame and column names." = 
+            length(cols) == ncol(testgenes))
     
   cell_n <- nrow(ref)
   testgene_n <- nrow(testgenes)
