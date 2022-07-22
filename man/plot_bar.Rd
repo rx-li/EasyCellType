@@ -4,12 +4,14 @@
 \alias{plot_bar}
 \title{Create bar plots for each cluster}
 \usage{
-plot_bar(test = "GSEA", data)
+plot_bar(test = "GSEA", data, cluster = NULL)
 }
 \arguments{
 \item{test}{"GSEA" or "fisher"}
 
 \item{data}{Annotation results}
+
+\item{cluster}{Cluster can be specified to print plots.}
 }
 \value{
 Bar plots showing show up to 10 candidate cell types for each cluster.

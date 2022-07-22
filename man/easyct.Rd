@@ -2,11 +2,12 @@
 % Please edit documentation in R/easyct.R
 \name{easyct}
 \alias{easyct}
-\title{Annotate cell types for scRNA-seq data.}
+\title{Annotate cell types for scRNA-seq data}
 \usage{
 easyct(
   data,
   db = "cellmarker",
+  genetype = "Entrezid",
   species = "Human",
   tissue = NULL,
   p_cut = 0.5,
@@ -15,12 +16,14 @@ easyct(
 )
 }
 \arguments{
-\item{data}{Name of a data frame containing the markers' Entrez IDs, cluster, 
+\item{data}{A data frame containing the markers, cluster, 
 and expression scores; Marker genes should be sorted in each cluster.
-Order of the columns should be gene, cluster and score. An example data can be
-loaded using `data(gene_pbmc)`.}
+Order of the columns should be gene, cluster and expression level score. 
+An example data can be loaded using `data(gene_pbmc)`.}
 
 \item{db}{Name of the reference database: cellmarker, clustermole or panglaodb;}
+
+\item{genetype}{Indicate the gene type in the input data frame: "Entrezid" or "symbol".}
 
 \item{species}{Human or Mouse. Human in default.}
 
