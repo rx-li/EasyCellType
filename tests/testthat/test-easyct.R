@@ -1,4 +1,4 @@
-test_that("annot", {
+test_that("easyct", {
   data("gene_pbmc")
   expected <- easyct(gene_pbmc, db="cellmarker", species="Human", 
                     tissue=c("Blood", "Peripheral blood", "Blood vessel",
