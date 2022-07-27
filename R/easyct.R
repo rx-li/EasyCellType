@@ -91,11 +91,18 @@ easyct <- function(data, db="cellmarker", genetype="Entrezid",
 
     results <- lapply(
       input.l.named,
-      function(x) GSEA(x, TERM2GENE = cells, pvalueCutoff = p_cut, minGSSize = 1, 
-                       scoreType = scoretype)
+      function(x)
+      {
+        if(length(intersect(names(x), cells$entrezid)) == 0){
+          NULL
+        }else{
+          GSEA(x, TERM2GENE = cells, pvalueCutoff = p_cut, minGSSize = 1, 
+               scoreType = scoretype)
+        }
+      }
       )
-    
-    results.f <- lapply(seq(length(data.l_s)), function(i)
+    results <- results[lengths(results) != 0]
+    results.f <- lapply(seq(length(results)), function(i)
       {if (nrow(results[[i]]) == 0){results[[i]]<- NA}; results[[i]]}
     )
     names(results.f) <- names(results)

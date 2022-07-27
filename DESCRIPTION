@@ -1,6 +1,6 @@
 Package: EasyCellType
 Title: Annotate cell types for scRNA-seq data
-Version: 0.99.4
+Version: 0.99.5
 Authors@R: c(
 	person(given="Ruoxing", family="Li", email="ruoxingli@outlook.com", role=c("aut", "cre", "ctb")),
 	person(given="Ziyi", family="Li", email="zli16@mdanderson.org", role="ctb"))
