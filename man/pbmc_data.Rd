@@ -19,7 +19,7 @@ A large dgCMatrix: 32378 * 2700
 \url{https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz}
 }
 \usage{
-pbmc_data
+data(pbmc_data)
 }
 \description{
 Count matrix of Peripheral Blood Mononuclear Cells (PBMC). 

@@ -4,6 +4,8 @@
 #' The original data set is from 10X genomics, and we followed the standard workflow 
 #' provided by Seurat package to process data, and then format to get the data frame.
 #' 
+#' @usage data(gene_pbmc)
+#' 
 #' @format A data frame with 727 rows and 3 variables:
 #' \describe{
 #'   \item{gene}{Entrez IDs of the marker genes}

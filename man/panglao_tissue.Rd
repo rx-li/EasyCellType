@@ -13,7 +13,7 @@ A list with 2 elements:
 }
 }
 \usage{
-panglao_tissue
+data(panglao_tissue)
 }
 \description{
 A list containing 2 elements: Human tissues and Mouse tissues.

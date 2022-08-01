@@ -13,7 +13,7 @@ A list with 2 elements:
 }
 }
 \usage{
-clustermole_tissue
+data(clustermole_tissue)
 }
 \description{
 A list containing 2 elements: Human tissues and Mouse tissues.

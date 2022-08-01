@@ -17,7 +17,7 @@ A data frame with 727 rows and 3 variables:
 \url{https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz}
 }
 \usage{
-gene_pbmc
+data(gene_pbmc)
 }
 \description{
 A data frame containing marker genes, clusters as well as the average of log 2 fold changes.

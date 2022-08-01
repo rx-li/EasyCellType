@@ -3,6 +3,8 @@
 #' Count matrix of Peripheral Blood Mononuclear Cells (PBMC). 
 #' The original data set is from 10X genomics.
 #' 
+#' @usage data(pbmc_data)
+#' 
 #' @format A large dgCMatrix: 32378 * 2700
 #' \describe{
 #'   \item{i}{Row index of the non-zero values}
