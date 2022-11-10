@@ -37,8 +37,8 @@ test_fisher <- function(testgenes, ref, cols){
       s <- NA
     } else {
       d <- data.frame(
-        "testgene" = c(length(common_id), testgene_n),
-        "targetcell" = c(target_cell_n, cell_n)
+        "testgene" = c(length(common_id), testgene_n - length(common_id)),
+        "targetcell" = c(target_cell_n, cell_n - target_cell_n - testgene_n + length(common_id))
       )
       res <- fisher.test(d, alternative="greater")
       p <- as.numeric(res$p.value)
