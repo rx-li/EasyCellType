@@ -15,7 +15,8 @@
 #' "Umbilical cord blood", "Venous blood"), p_cut=0.3, test="GSEA", scoretype="pos")
 #' summarycelltype(test="GSEA", results=result, cluster=0)
 #' 
-#' @return Test summary table
+#' @return A summary table of a annotation results. 
+#' "core_enrichment" contains markers contributing on the annotation.
 #' @export summarycelltype
 #' 
 summarycelltype <- function(test, results, cluster){

@@ -7,7 +7,7 @@
 #' @param data Annotation results 
 #' @param cluster Cluster can be specified to print plots.  
 #'
-#' @importFrom ggplot2 ggplot geom_bar theme_classic coord_flip labs theme aes element_blank element_text
+#' @importFrom ggplot2 ggplot geom_bar theme_classic coord_flip labs theme aes element_blank element_text scale_y_discrete
 #' @importFrom forcats fct_reorder
 #' @importFrom dplyr mutate
 #' @importFrom magrittr %>%
@@ -31,7 +31,7 @@ plot_bar <- function(test="GSEA", data, cluster=NULL){
   stopifnot("Annotation results should be specified." =
             length(data) > 0)
   
-  length_max <- 10
+  length_max <- 5
   data.f <- process_results(test, data) %>% 
     group_by(.data$cluster) %>%
     mutate(group_length_prop = log10(.data$pvalue) / log10(min(.data$pvalue)))
@@ -56,6 +56,8 @@ plot_bar <- function(test="GSEA", data, cluster=NULL){
       ID_color <- ifelse(d$method == "hard_fisher", "#F9A215", "#FEBA4F")
     }
     
+    lim_p <- round(-log10(rev((d$pvalue))), 2)
+    
     d %>%
       # order for x axis
       mutate(ID = fct_reorder(.data$ID, .data$method, .desc = TRUE)) %>%
@@ -63,9 +65,10 @@ plot_bar <- function(test="GSEA", data, cluster=NULL){
       geom_bar(stat="identity", width=0.5, fill=ID_color) +
       theme_classic() +
       coord_flip() +
-      labs(title=paste("Cluster", t)) +
-      theme(axis.title.x=element_blank(),
-            axis.text.x=element_blank(),
+      labs(title=paste("Cluster", t), y="-Log10(P value)") +
+      scale_y_discrete(limits=factor(lim_p)) + 
+      theme(#axis.title.x=element_blank(),
+            #axis.text.x=element_blank(),
             axis.ticks.x=element_blank(),
             axis.title.y=element_blank(),
             axis.ticks.y=element_blank(),

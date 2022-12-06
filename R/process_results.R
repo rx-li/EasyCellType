@@ -23,14 +23,22 @@ process_results <- function(test, data){
     enrich.re.d <- do.call(rbind, enrich.re.l)
     enrich.re.d$cluster <- rep(names(enrich.re.l), 
                                lapply(enrich.re.l, nrow))
-    enrich.d <- enrich.re.d[, c("ID", "pvalue", "cluster"), drop=FALSE]
+    enrich.d <- enrich.re.d[, c("ID", "pvalue", "cluster", "core_enrichment"), drop=FALSE]
     rownames(enrich.d) <- NULL
     enrich.hard <- enrich.d %>% 
       group_by(.data$cluster) %>%
       slice_min(n = 1, order_by = .data$pvalue) %>%
       mutate(method = "hard_enrich")
-    out <- merge(enrich.d, enrich.hard, by = c("ID", "pvalue", "cluster"), all.x = TRUE)
-    out$method[is.na(out$method)] <- "soft_enrich"
+    
+    enrich.soft <- enrich.d %>% 
+      group_by(.data$cluster) %>%
+      slice_min(n = 5, order_by = .data$pvalue) %>%
+      mutate(method = "soft_enrich")
+    
+    out <- rbind(enrich.hard, enrich.soft) %>% 
+      group_by(.data$cluster) %>%
+      distinct(ID, .keep_all=TRUE)
+    
   }else if(test == "fisher"){
     fisher.hard <- lapply(data, 
                           function(x) x[order(-x$p_adjust, abs(x$score),
@@ -47,9 +55,10 @@ process_results <- function(test, data){
     
     fisher.d <- merge(fisher.soft, fisher.hard, by = c("cluster", "cellName", "p_value", "score"), all.x = TRUE)
     fisher.d$method[is.na(fisher.d$method)] <- "soft_fisher"
-    out <- data.frame(ID = fisher.d$cellName, pvalue_unadjust=fisher.d$p_value,
-                      pvalue = fisher.d$p_adjust.x, 
-                      cluster = fisher.d$cluster, method = fisher.d$method)
+    out <- data.frame(ID=fisher.d$cellName, pvalue_unadjust=fisher.d$p_value,
+                      pvalue=fisher.d$p_adjust.x, 
+                      cluster=fisher.d$cluster, method=fisher.d$method,
+                      core_enrichment=fisher.d$core_enrichment.x)
     out <- na.omit(out)
   }
   return(out)
