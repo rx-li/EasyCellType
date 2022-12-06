@@ -47,15 +47,17 @@ test_fisher <- function(testgenes, ref, cols){
       score_f <- testgenes_f[, paste(cols[3])]
       s <- mean(score_f, na.rm=TRUE)
     }
-    return(list(p=p, s=s))
+    return(list(p=p, s=s, common_id=paste(common_id, collapse="/")))
   }
   
   re <- lapply(seq(length(cellname)), function(x) calculator(cellname[x]))
   p_value <- unlist(lapply(re, function(x) x$p))
   score_m <- unlist(lapply(re, function(x) x$s))
+  core_id <- unlist(lapply(re, function(x) x$common_id))
   p_adjusted <- p.adjust(p_value, method = "BH")
   
-  out <- na.omit(data.frame("cellName"=cellname, "p_value"=p_value, 
-                    "score"=score_m, "p_adjust"=p_adjusted))
+  
+  out <- na.omit(data.frame("cellName"=cellname, "p_value"=p_value, "score"=score_m, 
+                            "p_adjust"=p_adjusted, "core_enrichment"=core_id))
   return(out)
 }

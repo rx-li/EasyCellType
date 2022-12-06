@@ -14,7 +14,8 @@ summarycelltype(test, results, cluster)
 \item{cluster}{Cluster of interest.}
 }
 \value{
-Test summary table
+A summary table of a annotation results. 
+"core_enrichment" contains markers contributing on the annotation.
 }
 \description{
 This function is used to print summary table of annotation results
