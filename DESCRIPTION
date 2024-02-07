@@ -10,7 +10,7 @@ RoxygenNote: 7.2.1
 Encoding: UTF-8
 Depends: R (>= 4.2.0)
 biocViews: SingleCell, Software, GeneExpression, GeneSetEnrichment
-Imports: clusterProfiler, dplyr, forcats, ggplot2, magrittr, rlang, stats, org.Hs.eg.db, org.Mm.eg.db, AnnotationDbi
-Suggests: knitr, rmarkdown, testthat (>= 3.0.0), Seurat, BiocManager, devtools, vctrs (>= 0.6.4) 
+Imports: clusterProfiler, dplyr, forcats, ggplot2, magrittr, rlang, stats, org.Hs.eg.db, org.Mm.eg.db, AnnotationDbi, vctrs (>= 0.6.4)
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0), Seurat, BiocManager, devtools 
 VignetteBuilder: knitr
 Config/testthat/edition: 3
