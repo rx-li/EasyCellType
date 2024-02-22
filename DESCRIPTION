@@ -1,6 +1,6 @@
 Package: EasyCellType
 Title: Annotate cell types for scRNA-seq data
-Version: 1.5.3
+Version: 1.5.4
 Authors@R: c(
 	person(given="Ruoxing", family="Li", email="ruoxingli@outlook.com", role=c("aut", "cre", "ctb")),
 	person(given="Ziyi", family="Li", email="zli16@mdanderson.org", role="ctb"))
@@ -11,6 +11,6 @@ Encoding: UTF-8
 Depends: R (>= 4.2.0)
 biocViews: SingleCell, Software, GeneExpression, GeneSetEnrichment
 Imports: clusterProfiler, dplyr, forcats, ggplot2, magrittr, rlang, stats, org.Hs.eg.db, org.Mm.eg.db, AnnotationDbi, vctrs (>= 0.6.4), BiocStyle
-Suggests: knitr, rmarkdown, testthat (>= 3.0.0), Seurat, BiocManager, devtools 
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0), Seurat, BiocManager, devtools, BiocStyle 
 VignetteBuilder: knitr
 Config/testthat/edition: 3
